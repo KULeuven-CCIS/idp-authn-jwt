@@ -1,0 +1,38 @@
+<flow xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.springframework.org/schema/webflow"
+      xsi:schemaLocation="http://www.springframework.org/schema/webflow http://www.springframework.org/schema/webflow/spring-webflow.xsd"
+      parent="authn.abstract, authn/conditions">
+
+
+    <action-state id="InitializeJWTContext">
+        <evaluate expression="initializeJWTContext"/>
+        <evaluate expression="'proceed'"/>
+
+        <!-- proceed when no cookie was found -->
+        <transition on="NoCredentials" to="ReselectFlow"/>
+        <transition on="proceed" to="JWTExtractUsername"/>
+    </action-state>
+
+    <action-state id="JWTExtractUsername">
+        <evaluate expression="jwtExtractUsername"/>
+        <evaluate expression="'proceed'"/>
+
+        <transition on="ReselectFlow" to="ResetJWTCookie"/>
+        <transition on="proceed" to="JWTValidator"/>
+    </action-state>
+
+    <action-state id="JWTValidator">
+        <evaluate expression="jwtValidator"/>
+        <evaluate expression="'proceed'"/>
+
+        <transition on="proceed" to="ResetJWTCookie"/>
+    </action-state>
+
+    <action-state id="ResetJWTCookie">
+        <evaluate expression="resetJWTCookie"/>
+        <evaluate expression="'proceed'"/>
+
+        <transition on="proceed" to="proceed"/>
+    </action-state>
+
+    <bean-import resource="../../../conf/authn/jwt-authn-beans.xml" />
+</flow>

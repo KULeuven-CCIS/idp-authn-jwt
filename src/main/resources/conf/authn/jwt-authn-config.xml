@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:c="http://www.springframework.org/schema/c"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+
+                           http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd"
+
+       default-init-method="initialize"
+       default-destroy-method="destroy">
+
+    <bean id="shibboleth.authn.jwt.trusted_issuers" class="java.util.HashMap">
+        <constructor-arg>
+            <map key-type="java.lang.String" value-type="java.lang.String">
+                <entry key="%{idp.authn.jwt.issuer}" value="%{idp.authn.jwt.issuer_pubkey}" />
+            </map>
+        </constructor-arg>
+    </bean>
+    <bean id="shibboleth.authn.jwt.expiration" class="java.lang.String" c:_0="%{idp.authn.jwt.expiration:PT3M}"/>
+    <bean id="shibboleth.authn.jwt.privatekey" class="java.lang.String" c:_0="%{idp.authn.jwt.privatekey}"/>
+    <bean id="shibboleth.authn.jwt.jws.algorithms" class="java.util.ArrayList" c:_0="%{idp.authn.jwt.jws.algorithms}"/>
+    <bean id="shibboleth.authn.jwt.jwe.algorithms" class="java.util.ArrayList" c:_0="%{idp.authn.jwt.jwe.algorithms}"/>
+    <bean id="shibboleth.authn.jwt.jwe.enc_methods" class="java.util.ArrayList" c:_0="%{idp.authn.jwt.jwe.enc_methods}"/>
+    <bean id="shibboleth.authn.jwt.cookie_name" class="java.lang.String" c:_0="%{idp.authn.jwt.cookie_name}"/>
+    <bean id="shibboleth.authn.jwt.cookie_domain" class="java.lang.String" c:_0="%{idp.authn.jwt.cookie_domain}"/>
+
+    <!-- Simple transforms to apply to username before validation. -->
+    <util:constant id="shibboleth.authn.jwt.Lowercase" static-field="java.lang.Boolean.TRUE"/>
+    <util:constant id="shibboleth.authn.jwt.Uppercase" static-field="java.lang.Boolean.FALSE"/>
+    <util:constant id="shibboleth.authn.jwt.Trim" static-field="java.lang.Boolean.TRUE"/>
+
+
+    <!--
+    Define entries here to map error messages detected by validation actions and classify them as particular
+    kinds of errors for use in your templates and as events in flows.
+
+    Keys are events to signal, values are error codes.
+    -->
+    <util:map id="shibboleth.authn.jwt.ClassifiedMessageMap">
+    </util:map>
+
+
+    <!-- Apply any regular expression replacement pairs before validation. -->
+    <util:list id="shibboleth.authn.jwt.Transforms">
+        <!--
+        <bean parent="shibboleth.Pair" p:first="^(.+)@example\.edu$" p:second="$1" />
+        -->
+    </util:list>
+
+
+</beans>

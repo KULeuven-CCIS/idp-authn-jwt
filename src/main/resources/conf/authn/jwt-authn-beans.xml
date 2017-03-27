@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:c="http://www.springframework.org/schema/c" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd"
+
+       default-init-method="initialize" default-destroy-method="destroy">
+
+    <bean class="org.springframework.context.support.PropertySourcesPlaceholderConfigurer"
+          p:placeholderPrefix="%{" p:placeholderSuffix="}"/>
+
+    <bean class="net.shibboleth.idp.profile.impl.ProfileActionBeanPostProcessor"/>
+    <bean class="net.shibboleth.ext.spring.config.IdentifiableBeanPostProcessor"/>
+
+    <import resource="jwt-authn-config.xml"/>
+
+
+    <bean id="initializeJWTContext" class="be.kuleuven.ccis.shibboleth.idp.authn.impl.InitializeJWTContext" scope="prototype"
+          p:httpServletRequest-ref="shibboleth.HttpServletRequest"
+          c:cookieName-ref="shibboleth.authn.jwt.cookie_name"/>
+
+    <bean id="jwtExtractUsername" class="be.kuleuven.ccis.shibboleth.idp.authn.impl.JWTExtractUsername" scope="prototype"
+          p:httpServletRequest-ref="shibboleth.HttpServletRequest"
+          p:lowercase-ref="shibboleth.authn.jwt.Lowercase"
+          p:uppercase-ref="shibboleth.authn.jwt.Uppercase"
+          p:trim-ref="shibboleth.authn.jwt.Trim"
+          p:transforms-ref="shibboleth.authn.jwt.Transforms"
+          c:jwtProcessor-ref="jwtProcessor"
+          />
+
+    <bean id="jwtValidator" class="be.kuleuven.ccis.shibboleth.idp.authn.impl.JWTValidator" scope="prototype"
+          p:httpServletRequest-ref="shibboleth.HttpServletRequest"
+          p:classifiedMessages-ref="shibboleth.authn.jwt.ClassifiedMessageMap"/>
+
+    <bean id="resetJWTCookie" class="be.kuleuven.ccis.shibboleth.idp.authn.impl.ResetJWTCookie" scope="prototype"
+          p:httpServletRequest-ref="shibboleth.HttpServletRequest"
+          p:httpServletResponse-ref="shibboleth.HttpServletResponse"
+          c:cookieName-ref="shibboleth.authn.jwt.cookie_name"
+          c:cookieDomain-ref="shibboleth.authn.jwt.cookie_domain"/>
+
+    <bean id="jwtProcessor" class="be.kuleuven.ccis.shibboleth.idp.authn.impl.JWTProcessor"
+          c:privatekey-ref="shibboleth.authn.jwt.privatekey"
+          c:jweAlgorithms-ref="shibboleth.authn.jwt.jwe.algorithms"
+          c:jwsAlgorithms-ref="shibboleth.authn.jwt.jws.algorithms"
+          c:jweEncMethods-ref="shibboleth.authn.jwt.jwe.enc_methods"
+          c:jwtExpiration-ref="shibboleth.authn.jwt.expiration"
+          c:trustedIssuers-ref="shibboleth.authn.jwt.trusted_issuers"
+    />
+
+
+</beans>
