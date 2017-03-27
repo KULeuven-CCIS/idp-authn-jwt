@@ -19,7 +19,7 @@ The JWT-token must have at least the following claims:
 We assume that the JWT is signed (using the private key of the account management system) and encrypted (using the 
 public key of the Shibboleth IdP system).
 
-We used EC-keys to do the signing & encryption. The code has some dependencies on those keys, so it is nog interchangeable 
+We used EC-keys to do the signing & encryption. The code has some dependencies on those keys, so it is not interchangeable 
 with RSA-keys without code modifications.
 
 In any event the cookie that is configured to contain the JWT will be removed (even if the content cannot be validated).
