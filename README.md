@@ -1,5 +1,7 @@
 # Shibboleth IdP JWT authentication module
 
+[![Build Status](https://travis-ci.org/KULeuven-CCIS/idp-authn-jwt.svg?branch=master)](https://travis-ci.org/KULeuven-CCIS/idp-authn-jwt)
+
 This authentication module can be used to authenticate the user based on a JWT-token which is send to the IdP via a
 common domain cookie. We use this to enable Single Sign-On between our account management system and Shibboleth IdP3
 system who share a common domain.
