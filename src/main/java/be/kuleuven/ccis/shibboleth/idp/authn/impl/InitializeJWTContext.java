@@ -62,10 +62,14 @@ public class InitializeJWTContext extends AbstractExtractionAction {
     @Override
     protected void doExecute(ProfileRequestContext profileRequestContext, AuthenticationContext authenticationContext) {
 
-        Cookie jwtCookie = Arrays.stream(this.getHttpServletRequest().getCookies())
+        Cookie jwtCookie = null;
+        if (this.getHttpServletRequest().getCookies() != null) {
+          jwtCookie = Arrays.stream(this.getHttpServletRequest().getCookies())
                 .filter(x -> cookieName.equals(x.getName()))
                 .findAny()
                 .orElse(null);
+        }
+
         if (jwtCookie == null) {
                 log.debug("{} No JWT cookie found with name: {}", getLogPrefix(), cookieName);
                 ActionSupport.buildEvent(profileRequestContext, AuthnEventIds.NO_CREDENTIALS);
