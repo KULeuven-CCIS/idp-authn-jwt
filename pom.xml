@@ -7,7 +7,7 @@
     <name>Shibboleth IdP :: JWT authentication module</name>
     <groupId>be.kuleuven.ccis</groupId>
     <artifactId>idp-authn-jwt</artifactId>
-    <version>1.0-LATEST-SNAPSHOT</version>
+    <version>1.0.0</version>
     <packaging>jar</packaging>
 
     <parent>
