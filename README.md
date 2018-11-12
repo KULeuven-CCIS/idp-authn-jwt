@@ -76,9 +76,9 @@ Edit the following properties to $IDP_HOME/conf/jwt.properties (usually /opt/shi
 
 ```
 idp.authn.jwt.issuer=https://account.example.com
-idp.authn.jwt.issuer_pubkey=credentials/account.example.com-pubkey.pem
+idp.authn.jwt.issuer_pubkey=%{idp.home}/credentials/account.example.com-pubkey.pem
 idp.authn.jwt.expiration=PT3M
-idp.authn.jwt.privatekey=credentials/ec-keypair.pem
+idp.authn.jwt.privatekey=%{idp.home}/credentials/ec-keypair.pem
 idp.authn.jwt.jws.algorithms=ES512,ES384,ES256
 idp.authn.jwt.jwe.algorithms=ECDH-ES,ECDH-ES+A128KW,ECDH-ES+A192KW,ECDH-ES+A256KW
 idp.authn.jwt.jwe.enc_methods=A256GCM
