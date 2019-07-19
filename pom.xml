@@ -13,7 +13,7 @@
     <parent>
         <groupId>net.shibboleth.idp</groupId>
         <artifactId>idp-parent</artifactId>
-        <version>3.3.0</version>
+        <version>3.4.0</version>
     </parent>
 
     <repositories>
@@ -56,7 +56,13 @@
         <dependency>
             <groupId>com.nimbusds</groupId>
             <artifactId>nimbus-jose-jwt</artifactId>
-            <version>4.34.2</version>
+            <version>6.3</version>
+        </dependency>
+        <!-- JWT dependencies -->
+        <dependency>
+            <groupId>be.kuleuven.ccis.util</groupId>
+            <artifactId>jwt</artifactId>
+            <version>1.0.0</version>
         </dependency>
     </dependencies>
 

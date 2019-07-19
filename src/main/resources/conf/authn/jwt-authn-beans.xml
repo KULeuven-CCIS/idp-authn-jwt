@@ -25,7 +25,12 @@
           p:uppercase-ref="shibboleth.authn.jwt.Uppercase"
           p:trim-ref="shibboleth.authn.jwt.Trim"
           p:transforms-ref="shibboleth.authn.jwt.Transforms"
-          c:jwtProcessor-ref="jwtProcessor"
+          c:privatekey-ref="shibboleth.authn.jwt.privatekey"
+          c:jweAlgorithms-ref="shibboleth.authn.jwt.jwe.algorithms"
+          c:jwsAlgorithms-ref="shibboleth.authn.jwt.jws.algorithms"
+          c:jweEncMethods-ref="shibboleth.authn.jwt.jwe.enc_methods"
+          c:jwtExpiration-ref="shibboleth.authn.jwt.expiration"
+          c:trustedIssuers-ref="shibboleth.authn.jwt.trusted_issuers"
           />
 
     <bean id="jwtValidator" class="be.kuleuven.ccis.shibboleth.idp.authn.impl.JWTValidator" scope="prototype"
@@ -38,13 +43,6 @@
           c:cookieName-ref="shibboleth.authn.jwt.cookie_name"
           c:cookieDomain-ref="shibboleth.authn.jwt.cookie_domain"/>
 
-    <bean id="jwtProcessor" class="be.kuleuven.ccis.shibboleth.idp.authn.impl.JWTProcessor"
-          c:privatekey-ref="shibboleth.authn.jwt.privatekey"
-          c:jweAlgorithms-ref="shibboleth.authn.jwt.jwe.algorithms"
-          c:jwsAlgorithms-ref="shibboleth.authn.jwt.jws.algorithms"
-          c:jweEncMethods-ref="shibboleth.authn.jwt.jwe.enc_methods"
-          c:jwtExpiration-ref="shibboleth.authn.jwt.expiration"
-          c:trustedIssuers-ref="shibboleth.authn.jwt.trusted_issuers"
     />
 
 
